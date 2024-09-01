@@ -1,13 +1,12 @@
-package unnamed.unnamed;
+package bootManagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UnnamedApplication {
+public class BookManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UnnamedApplication.class, args);
+		SpringApplication.run(BookManagementApplication.class, args);
 	}
-
 }
