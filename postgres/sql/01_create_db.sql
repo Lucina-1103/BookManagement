@@ -7,7 +7,7 @@ CREATE DATABASE book_management;
 -- テーブルの作成
 CREATE TABLE book (
     uuid uuid,
-    name VARCHAR
+    title VARCHAR
 );
 
 -- 初期データの投入
