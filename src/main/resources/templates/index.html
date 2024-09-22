@@ -1,1 +1,15 @@
-test
+test    
+<table>
+    <thead>
+        <tr>
+            <th>uuid</th>    
+            <th>title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="bookEntity : ${bookEntityList}" th:object="${bookEntity}">
+            <td th:text="*{uuid}"></td>
+            <td th:text="*{title}"></td>
+        </tr>
+    </tbody>
+</table>
