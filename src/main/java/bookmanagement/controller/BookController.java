@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 
     private final BookService bookService;
-    
-	@GetMapping("/")
-	public String home(Model model, Pageable pageable) {
+
+    @GetMapping("/")
+    public String home(Model model, Pageable pageable) {
         Iterable<BookEntity> bookEntityList = bookService.getBookEntityList(pageable);
         model.addAttribute("bookEntityList", bookEntityList);
         return "index";
