@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BookEntity {
+
     @Id
     @Column(name = "uuid")
     private UUID uuid;
