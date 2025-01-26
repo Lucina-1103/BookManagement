@@ -17,7 +17,7 @@ public class BookController {
 
     @GetMapping("/")
     public String home(Model model, Pageable pageable) {
-        Iterable<BookEntity> bookEntityList = bookService.getBookEntityList(pageable);
+        Iterable<BookEntity> bookEntityList = bookService.getBookEntityList();
         model.addAttribute("bookEntityList", bookEntityList);
         return "index";
     }
