@@ -10,6 +10,7 @@ test
         <tr th:each="bookEntity : ${bookEntityList}" th:object="${bookEntity}">
             <td th:text="*{uuid}"></td>
             <td th:text="*{title}"></td>
+            <td th:text="*{sortOrder}"></td>
         </tr>
     </tbody>
 </table>

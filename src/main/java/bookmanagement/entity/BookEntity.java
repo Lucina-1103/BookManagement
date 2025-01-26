@@ -21,4 +21,7 @@ public class BookEntity {
 
     @Column(name = "title")
     private String title;
+
+    @Column(name = "sort_order")
+    private Integer sortOrder;
 }
