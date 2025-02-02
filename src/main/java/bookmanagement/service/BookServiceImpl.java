@@ -1,7 +1,6 @@
 package bookmanagement.service;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<BookEntity> getBookEntityList() {
-        Pageable pageable = PageRequest.of(0, 20, Sort.by("sortOrder"));
+    public Page<BookEntity> getBookEntityPage(Pageable pageable) {
+        pageable.getSortOr(Sort.by("sortOrder"));
         return bookRepository.findAll(pageable);
     }
 }

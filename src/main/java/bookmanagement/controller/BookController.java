@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import bookmanagement.entity.BookEntity;
 import bookmanagement.service.BookService;
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +16,8 @@ public class BookController {
 
     @GetMapping("/")
     public String home(Model model, Pageable pageable) {
-        Iterable<BookEntity> bookEntityList = bookService.getBookEntityList();
-        model.addAttribute("bookEntityList", bookEntityList);
+        var bookEntityPage = bookService.getBookEntityPage(pageable);
+        model.addAttribute("bookEntityPage", bookEntityPage);
         return "index";
     }
 }
