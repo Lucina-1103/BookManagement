@@ -15,4 +15,3 @@ jobs:
        run: echo success
      - if: failure()
        run: echo failure
-
