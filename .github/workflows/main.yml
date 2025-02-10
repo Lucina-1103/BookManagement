@@ -1,0 +1,16 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+   runs-on: ubuntu-22.04
+   steps:
+     - run: docker compose up
+     - if: success()
+     - run: echo success
+     - if: failure()
+     - run: echo failure
