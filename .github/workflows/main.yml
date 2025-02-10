@@ -12,6 +12,6 @@ jobs:
      - uses: actions/checkout@v4
      - run: docker compose up
      - if: success()
-     - run: echo success
+       run: echo success
      - if: failure()
-     - run: echo failure
+       run: echo failure
