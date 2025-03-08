@@ -16,7 +16,16 @@ public class BookController {
 
     @GetMapping("/")
     public String home(Model model, Pageable pageable) {
+        // ----- 書籍情報の取得 -----
         var bookEntityPage = bookService.getBookEntityPage(pageable);
+
+        // ----- 存在しないページ番号を指定された場合の対応 -----
+        if (pageable.getPageNumber() < 0
+                || bookEntityPage.getTotalPages() <= pageable.getPageNumber()) {
+            return "redirect:/";
+        }
+
+        // ----- 画面へ書籍情報を渡す -----
         model.addAttribute("bookEntityPage", bookEntityPage);
         return "index";
     }
