@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import bookmanagement.entity.BookEntity;
+import bookmanagement.form.BookForm;
 import bookmanagement.repository.BookRepository;
 
 @Service
@@ -21,5 +22,21 @@ public class BookServiceImpl implements BookService {
     public Page<BookEntity> getBookEntityPage(Pageable pageable) {
         pageable.getSortOr(Sort.by("sortOrder"));
         return bookRepository.findAll(pageable);
+    }
+
+    @Override
+    public BookEntity saveBookEntity(BookForm bookForm) {
+        var bookEntity = new BookEntity();
+
+        bookEntity.setTitle(bookForm.getTitle());
+
+        var maxSortOrder = bookRepository.findMaxSortOrder();
+        if (maxSortOrder == null) {
+            bookEntity.setSortOrder(10);
+        } else {
+            bookEntity.setSortOrder(maxSortOrder + 10);
+        }
+
+        return bookRepository.save(bookEntity);
     }
 }
