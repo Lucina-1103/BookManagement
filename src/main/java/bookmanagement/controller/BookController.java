@@ -74,4 +74,31 @@ public class BookController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/edit/{uuid}")
+    public String edit(@PathVariable("uuid") UUID uuid, Model model) {
+        // debug
+        System.out.println("***** Start BookController#edit");
+
+        var bookEntity = bookService.showBookEntity(uuid);
+        var bookForm = new BookForm();
+        bookForm.setUuid(bookEntity.getUuid());
+        bookForm.setTitle(bookEntity.getTitle());
+        bookForm.setSortOrder(bookEntity.getSortOrder());
+
+        model.addAttribute(bookForm);
+
+        return "edit";
+    }
+
+    @PostMapping("/update/{uuid}")
+    public String update(@PathVariable("uuid") UUID uuid, @ModelAttribute("bookForm") BookForm bookForm, BindingResult bindingResult) {
+        // debug
+        System.out.println("***** Start BookController#update");
+
+        bookService.updateBookEntity(uuid, bookForm);
+
+        return "redirect:/";
+    }
+
 }

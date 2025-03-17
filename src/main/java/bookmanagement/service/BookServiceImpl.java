@@ -1,11 +1,12 @@
 package bookmanagement.service;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import bookmanagement.entity.BookEntity;
 import bookmanagement.form.BookForm;
 import bookmanagement.repository.BookRepository;
@@ -42,6 +43,15 @@ public class BookServiceImpl implements BookService {
         } else {
             bookEntity.setSortOrder(maxSortOrder + 10);
         }
+
+        return bookRepository.save(bookEntity);
+    }
+
+    @Override
+    public BookEntity updateBookEntity(UUID uuid, BookForm bookForm) {
+        var bookEntity = bookRepository.findByUuid(uuid);
+
+        bookEntity.setTitle(bookForm.getTitle());
 
         return bookRepository.save(bookEntity);
     }
