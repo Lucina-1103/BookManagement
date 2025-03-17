@@ -22,6 +22,7 @@
                     <td th:text="*{uuid}"></td>
                     <td th:text="*{title}"></td>
                     <td th:text="*{sortOrder}"></td>
+                    <td><a th:href="@{./show/{code}(code=*{uuid})}">参照</a></td>
                 </tr>
             </tbody>
         </table>

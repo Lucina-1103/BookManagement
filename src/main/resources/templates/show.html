@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+    </head>
+    <body>
+        書籍を参照するためのページ【仮】<br>
+        <lavel>uuid</lavel><input type="text" th:field="${bookEntity.uuid}" readonly><br>
+        <lavel>title</lavel><input type="text" th:field="${bookEntity.title}" readonly><br>
+        <lavel>sortOrder</lavel><input type="text" th:field="${bookEntity.sortOrder}" readonly><br>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous">
+        </script>
+    </body>
+</html>

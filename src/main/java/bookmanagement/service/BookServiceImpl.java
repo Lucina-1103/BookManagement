@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import bookmanagement.entity.BookEntity;
 import bookmanagement.form.BookForm;
 import bookmanagement.repository.BookRepository;
@@ -22,6 +23,11 @@ public class BookServiceImpl implements BookService {
     public Page<BookEntity> getBookEntityPage(Pageable pageable) {
         pageable.getSortOr(Sort.by("sortOrder"));
         return bookRepository.findAll(pageable);
+    }
+
+    @Override
+    public BookEntity showBookEntity(UUID uuid) {
+        return bookRepository.findByUuid(uuid);
     }
 
     @Override

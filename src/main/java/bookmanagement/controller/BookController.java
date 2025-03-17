@@ -1,11 +1,14 @@
 package bookmanagement.controller;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import bookmanagement.form.BookForm;
@@ -34,6 +37,24 @@ public class BookController {
         return "index";
     }
 
+    @GetMapping("/show/{uuid}")
+    public String show(@PathVariable("uuid") UUID uuid, Model model) {
+        // debug
+        System.out.println("***** Start BookController#show");
+        System.out.println("***** uuid:" + uuid.toString());
+
+        var bookEntity = bookService.showBookEntity(uuid);
+        // debug
+        System.out.println("***** bookEntity.getUuid()  : " + bookEntity.getUuid());
+        System.out.println("***** bookEntity.getTitle() : " + bookEntity.getTitle());
+
+        model.addAttribute(bookEntity);
+
+        // 暫定的にトップへリダイレクト
+        return "show";
+    }
+
+
     @GetMapping("/create")
     public String create(Model model) {
         // debug
@@ -49,7 +70,7 @@ public class BookController {
         // debug
         System.out.println("***** Start BookController#insert");
 
-        var bookEntity = bookService.saveBookEntity(bookForm);
+        bookService.saveBookEntity(bookForm);
 
         return "redirect:/";
     }
