@@ -8,8 +8,8 @@
             crossorigin="anonymous">
     </head>
     <body>
-        書籍を新規登録するためのページ【仮】
-        <form action="/insert" th:object="${bookForm}" id="bookForm" method="post">
+        書籍を編集するためのページ【仮】
+        <form th:action="@{/update/{uuid}(uuid=*{uuid})}" th:object="${bookForm}" id="bookForm" method="post">
             <input type="text" th:field="*{title}">
         </form>
 

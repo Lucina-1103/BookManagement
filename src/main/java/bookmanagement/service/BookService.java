@@ -15,4 +15,6 @@ public interface BookService {
     public BookEntity showBookEntity(UUID uuid);
 
     public BookEntity saveBookEntity(BookForm bookForm);
+
+    public BookEntity updateBookEntity(UUID uuid, BookForm bookForm);
 }
