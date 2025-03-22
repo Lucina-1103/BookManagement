@@ -26,6 +26,10 @@
                     <td th:text="*{sortOrder}"></td>
                     <td><a th:href="@{./show/{uuid}(uuid=*{uuid})}">参照</a></td>
                     <td><a th:href="@{./edit/{uuid}(uuid=*{uuid})}">修正</a></td>
+                    <td><form th:action="@{./delete/{uuid}(uuid=*{uuid})}" method="POST">
+                        <input type="hidden" name="uuid" th:value="*{uuid}"/>
+                        <input type="submit" value="削除" />
+                    </form></td>
                 </tr>
             </tbody>
         </table>
