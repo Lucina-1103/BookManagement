@@ -101,4 +101,13 @@ public class BookController {
         return "redirect:/";
     }
 
+    @PostMapping("/delete/{uuid}")
+    public String delete(@PathVariable("uuid") UUID uuid) {
+        // debug
+        System.out.println("***** Start BookController#delete");
+
+        bookService.deleteBookEntity(uuid);
+
+        return "redirect:/";
+    }
 }

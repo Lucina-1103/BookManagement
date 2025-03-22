@@ -9,8 +9,10 @@ import bookmanagement.entity.BookEntity;
 
 public interface BookRepository extends JpaRepository<BookEntity, String> {
 
-    BookEntity findByUuid(UUID uuid);
+    public BookEntity findByUuid(UUID uuid);
 
     @Query("SELECT MAX(sortOrder) FROM BookEntity")
-    Integer findMaxSortOrder();
+    public Integer findMaxSortOrder();
+
+    public Integer deleteByUuid(UUID uuid);
 }
