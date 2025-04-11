@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookmanagement.form.BookForm;
+import bookmanagement.helper.BookHelper;
 import bookmanagement.service.BookService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 
     private final BookService bookService;
+    private final BookHelper bookHelper;
 
     /*
      * 書籍一覧画面を表示する
@@ -72,7 +74,9 @@ public class BookController {
      */
     @PostMapping("")
     public String insert(@ModelAttribute("bookForm") BookForm bookForm, BindingResult bindingResult) {
-        bookService.saveBookEntity(bookForm);
+        var bookEntity = bookHelper.toBookEntity(bookForm);
+
+        bookService.insertBookEntity(bookEntity);
 
         return "redirect:/books";
     }
@@ -92,7 +96,9 @@ public class BookController {
 
     @PutMapping("{uuid}")
     public String update(@PathVariable("uuid") UUID uuid, @ModelAttribute("bookForm") BookForm bookForm, BindingResult bindingResult) {
-        bookService.updateBookEntity(uuid, bookForm);
+        var bookEntity = bookHelper.toBookEntity(bookForm);
+
+        bookService.updateBookEntity(uuid, bookEntity);
 
         return "redirect:/books";
     }

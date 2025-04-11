@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import bookmanagement.entity.BookEntity;
-import bookmanagement.form.BookForm;
 import bookmanagement.repository.BookRepository;
 
 @Service
@@ -34,11 +33,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity saveBookEntity(BookForm bookForm) {
-        var bookEntity = new BookEntity();
-
-        bookEntity.setTitle(bookForm.getTitle());
-
+    public BookEntity insertBookEntity(BookEntity bookEntity) {
         var maxSortOrder = bookRepository.findMaxSortOrder();
         if (maxSortOrder == null) {
             bookEntity.setSortOrder(10);
@@ -50,12 +45,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity updateBookEntity(UUID uuid, BookForm bookForm) {
-        var bookEntity = bookRepository.findByUuid(uuid);
+    public BookEntity updateBookEntity(UUID uuid, BookEntity bookEntity) {
+        var baseBookEntity = bookRepository.findByUuid(uuid);
 
-        bookEntity.setTitle(bookForm.getTitle());
+        baseBookEntity.setTitle(bookEntity.getTitle());
 
-        return bookRepository.save(bookEntity);
+        return bookRepository.save(baseBookEntity);
     }
 
     @Override
