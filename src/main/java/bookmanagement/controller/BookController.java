@@ -36,6 +36,7 @@ public class BookController {
         // ----- 存在しないページ番号を指定された場合の対応 -----
         if (pageable.getPageNumber() < 0
                 || bookEntityPage.getTotalPages() <= pageable.getPageNumber()) {
+            model.addAttribute("bookEntityPage", bookEntityPage);
             return "/books/index";
         }
 
