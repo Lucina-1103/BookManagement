@@ -52,7 +52,7 @@ public class BookController {
      */
     @GetMapping("{uuid}")
     public String detail(@PathVariable("uuid") UUID uuid, Model model) {
-        var bookEntity = bookService.showBookEntity(uuid);
+        var bookEntity = bookService.getBookEntity(uuid);
 
         model.addAttribute(bookEntity);
 
@@ -83,7 +83,7 @@ public class BookController {
 
     @GetMapping("edit/{uuid}")
     public String edit(@PathVariable("uuid") UUID uuid, Model model) {
-        var bookEntity = bookService.showBookEntity(uuid);
+        var bookEntity = bookService.getBookEntity(uuid);
         var bookForm = new BookForm();
         bookForm.setUuid(bookEntity.getUuid());
         bookForm.setTitle(bookEntity.getTitle());
