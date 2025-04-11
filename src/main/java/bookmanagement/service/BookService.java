@@ -12,7 +12,7 @@ import bookmanagement.entity.BookEntity;
 public interface BookService {
     public Page<BookEntity> getBookEntityPage(Pageable pageable);
 
-    public BookEntity showBookEntity(UUID uuid);
+    public BookEntity getBookEntity(UUID uuid);
 
     public BookEntity insertBookEntity(BookEntity bookEntity);
 

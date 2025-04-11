@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity showBookEntity(UUID uuid) {
+    public BookEntity getBookEntity(UUID uuid) {
         return bookRepository.findByUuid(uuid);
     }
 
