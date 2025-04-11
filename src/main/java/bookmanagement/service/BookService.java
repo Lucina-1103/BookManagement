@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import bookmanagement.entity.BookEntity;
-import bookmanagement.form.BookForm;
 
 
 public interface BookService {
@@ -15,9 +14,9 @@ public interface BookService {
 
     public BookEntity showBookEntity(UUID uuid);
 
-    public BookEntity saveBookEntity(BookForm bookForm);
+    public BookEntity insertBookEntity(BookEntity bookEntity);
 
-    public BookEntity updateBookEntity(UUID uuid, BookForm bookForm);
+    public BookEntity updateBookEntity(UUID uuid, BookEntity bookEntity);
 
     @Transactional
     public void deleteBookEntity(UUID uuid);
