@@ -6,10 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookmanagement.form.BookForm;
 import bookmanagement.service.BookService;
@@ -17,69 +20,64 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/books")
 public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping("/")
-    public String home(Model model, Pageable pageable) {
+    /*
+     * 書籍一覧画面を表示する
+     */
+    @GetMapping("")
+    public String books(Model model, Pageable pageable) {
         // ----- 書籍情報の取得 -----
         var bookEntityPage = bookService.getBookEntityPage(pageable);
 
         // ----- 存在しないページ番号を指定された場合の対応 -----
         if (pageable.getPageNumber() < 0
                 || bookEntityPage.getTotalPages() <= pageable.getPageNumber()) {
-            return "redirect:/";
+            return "/books/index";
         }
 
         // ----- 画面へ書籍情報を渡す -----
         model.addAttribute("bookEntityPage", bookEntityPage);
-        return "index";
+        return "/books/index";
     }
 
-    @GetMapping("/show/{uuid}")
-    public String show(@PathVariable("uuid") UUID uuid, Model model) {
-        // debug
-        System.out.println("***** Start BookController#show");
-        System.out.println("***** uuid:" + uuid.toString());
-
+    /*
+     * 書籍詳細画面を表示する
+     */
+    @GetMapping("{uuid}")
+    public String detail(@PathVariable("uuid") UUID uuid, Model model) {
         var bookEntity = bookService.showBookEntity(uuid);
-        // debug
-        System.out.println("***** bookEntity.getUuid()  : " + bookEntity.getUuid());
-        System.out.println("***** bookEntity.getTitle() : " + bookEntity.getTitle());
 
         model.addAttribute(bookEntity);
 
-        // 暫定的にトップへリダイレクト
-        return "show";
+        return "/books/detail";
     }
 
-
-    @GetMapping("/create")
+    /*
+     * 書籍登録画面を表示する
+     */
+    @GetMapping("new")
     public String create(Model model) {
-        // debug
-        System.out.println("***** Start BookController#create");
-
         var bookForm = new BookForm();
         model.addAttribute(bookForm);
-        return "create";
+        return "/books/new";
     }
 
-    @PostMapping("/insert")
+    /*
+     * 書籍情報を登録する
+     */
+    @PostMapping("")
     public String insert(@ModelAttribute("bookForm") BookForm bookForm, BindingResult bindingResult) {
-        // debug
-        System.out.println("***** Start BookController#insert");
-
         bookService.saveBookEntity(bookForm);
 
-        return "redirect:/";
+        return "redirect:/books";
     }
 
-    @GetMapping("/edit/{uuid}")
+    @GetMapping("edit/{uuid}")
     public String edit(@PathVariable("uuid") UUID uuid, Model model) {
-        // debug
-        System.out.println("***** Start BookController#edit");
-
         var bookEntity = bookService.showBookEntity(uuid);
         var bookForm = new BookForm();
         bookForm.setUuid(bookEntity.getUuid());
@@ -88,26 +86,20 @@ public class BookController {
 
         model.addAttribute(bookForm);
 
-        return "edit";
+        return "/books/edit";
     }
 
-    @PostMapping("/update/{uuid}")
+    @PutMapping("{uuid}")
     public String update(@PathVariable("uuid") UUID uuid, @ModelAttribute("bookForm") BookForm bookForm, BindingResult bindingResult) {
-        // debug
-        System.out.println("***** Start BookController#update");
-
         bookService.updateBookEntity(uuid, bookForm);
 
-        return "redirect:/";
+        return "redirect:/books";
     }
 
-    @PostMapping("/delete/{uuid}")
+    @DeleteMapping("{uuid}")
     public String delete(@PathVariable("uuid") UUID uuid) {
-        // debug
-        System.out.println("***** Start BookController#delete");
-
         bookService.deleteBookEntity(uuid);
 
-        return "redirect:/";
+        return "redirect:/books";
     }
 }

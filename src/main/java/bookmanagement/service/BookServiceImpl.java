@@ -24,9 +24,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<BookEntity> getBookEntityPage(Pageable pageable) {
         var sort = pageable.getSortOr(Sort.by("sortOrder"));
-        // Pageable sortedPageable = Pageable.ofSize(pageable.getPageSize())
-        //        .withPage(pageable.getPageNumber())
-        //        .withSort(sort);
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         return bookRepository.findAll(sortedPageable);
     }
